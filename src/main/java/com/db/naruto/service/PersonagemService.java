@@ -1,5 +1,6 @@
 package com.db.naruto.service;
 
+import com.db.naruto.dto.PersonagemRequest;
 import com.db.naruto.model.Personagem;
 import com.db.naruto.repository.PersonagemRepository;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,11 @@ public class PersonagemService {
         this.repository = repository;
     }
 
-    public void salvarPersonagem(Personagem personagem){
-        repository.saveAndFlush(personagem);
+    public Personagem criarPersonagem(PersonagemRequest req){
+        Personagem personagem = new Personagem(
+                req.nome(), req.idade(), req.chakra());
+
+        return repository.save(personagem);
     }
 
     public void deletarPersonagem(Personagem personagem){
@@ -21,8 +25,8 @@ public class PersonagemService {
     }
 
     public Personagem buscarPersonagemPorId(Integer id){
-        return repository.findById(id).orElseThrow(
-                () -> new RuntimeException("Personagem não encontrado")
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personagem não encontrado")
         );
     }
 
@@ -41,5 +45,14 @@ public class PersonagemService {
             personagem.getJutsus()[personagem.getQtdJutsus()] = jutsu;
             personagem.setQtdJutsus(personagem.getQtdJutsus() + 1);
         }
+    }
+
+    public void aumentarChakra(Integer id, int numero){
+        if (numero <= 0) {
+            throw new RuntimeException("Quantidade de chakra inválida");
+        }
+
+        Personagem personagem = buscarPersonagemPorId(id);
+        personagem.setChakra(personagem.getChakra() + numero);
     }
 }

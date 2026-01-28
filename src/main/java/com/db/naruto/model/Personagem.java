@@ -16,7 +16,7 @@ public class Personagem {
     private String[] jutsus;
     private int qtdJutsus;
 
-    public Personagem(String nome, int idade, int chakra, String[] jutsus, int qtdJutsus) {
+    public Personagem(String nome, int idade, int chakra) {
         this.nome = nome;
         this.idade = idade;
         this.chakra = chakra;
