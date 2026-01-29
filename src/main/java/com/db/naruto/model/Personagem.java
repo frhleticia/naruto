@@ -1,9 +1,11 @@
 package com.db.naruto.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 public class Personagem {
 
     @Id
@@ -12,13 +14,17 @@ public class Personagem {
 
     private String nome;
     private int idade;
+    private String aldeia;
     private int chakra;
     private String[] jutsus;
     private int qtdJutsus;
 
-    public Personagem(String nome, int idade, int chakra) {
+    public Personagem() {}
+
+    public Personagem(String nome, int idade, String aldeia, int chakra) {
         this.nome = nome;
         this.idade = idade;
+        this.aldeia = aldeia;
         this.chakra = chakra;
         this.jutsus = new String[10];
         this.qtdJutsus = 0;
@@ -46,6 +52,14 @@ public class Personagem {
 
     public void setIdade(int idade) {
         this.idade = idade;
+    }
+
+    public String getAldeia() {
+        return aldeia;
+    }
+
+    public void setAldeia(String aldeia) {
+        this.aldeia = aldeia;
     }
 
     public int getChakra() {
