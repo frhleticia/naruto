@@ -29,8 +29,7 @@ public class PersonagemService {
 
     public Personagem buscarPersonagemPorId(Integer id){
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Personagem não encontrado")
-        );
+                .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
     }
 
     public void adicionarJutsu(Integer id, JutsuRequest jutsu){

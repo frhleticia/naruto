@@ -6,10 +6,10 @@ import com.db.naruto.repository.PersonagemRepository;
 import com.db.naruto.service.PersonagemService;
 import com.db.naruto.dto.JutsuRequest;
 import com.db.naruto.dto.ChakraRequest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
@@ -17,19 +17,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 public class PersonagemServiceUnitTest {
 
     @InjectMocks
-    PersonagemService personagemService;
+    private PersonagemService personagemService;
 
     @Mock
-    PersonagemRepository personagemRepository;
-
-    @BeforeEach
-    void setup() {
-        personagemRepository = mock(PersonagemRepository.class);
-        personagemService = new PersonagemService(personagemRepository);
-    }
+    private PersonagemRepository personagemRepository;
 
     @Test
     void deveCriarPersonagemQuandoDadosValidos() {
@@ -123,7 +118,7 @@ public class PersonagemServiceUnitTest {
         when(personagemRepository.findById(1))
                 .thenReturn(Optional.of(personagem));
 
-        RuntimeException ex = assertThrows(RuntimeException.class, () ->
+        assertThrows(RuntimeException.class, () ->
                 personagemService.adicionarJutsu(1, new JutsuRequest("Chidori")));
     }
 
